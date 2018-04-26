@@ -32,11 +32,13 @@ void MegaFuse::maintenance(MegaFuse* that)
 {
 	while(that->running)
 	{
-		if(that->needSerializeSymlink)
-			that->serializeSymlink();
+		if (!ISUNDEF(client->me)) {
+			if(that->needSerializeSymlink)
+				that->serializeSymlink();
 
-	        if(that->needSerializeXattr)
-			that->serializeXattr();
+			if(that->needSerializeXattr)
+				that->serializeXattr();
+		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(60000));
 	}
